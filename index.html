@@ -23,12 +23,12 @@
         // }
     };
 </script>
-<script src="./js/vendor/less/dist/less.js"></script>
-<script src="./js/vendor/requirejs/require.js"></script>
+<script src="./vendor/less/dist/less.js"></script>
+<script src="./vendor/requirejs/require.js"></script>
 <script>
 
 var __qiezi = {
-    url: './js/',
+    url: './',
     paths: (function(){
         var libUrl = './';
         return {
@@ -81,7 +81,7 @@ require.config({
 <!--end: include angular view-->
 
 <script>
-    require(["jquery", "./app"], function($, app){
+    require(["jquery", "./js/app"], function($, app){
         $(function(){
             app.init();
         });

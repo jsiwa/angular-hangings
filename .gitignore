@@ -64,5 +64,5 @@ node_modules
 /public/static/.sass-cache/
 .cache/
 __build/
-js/vendor/
+vendor/
 
