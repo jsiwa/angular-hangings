@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>angular</title>
+<script>
+    var less = {
+        logLevel: 0,
+        async: false,       // 异步加载导入的文件
+        env: "development", // 或者"production"
+        dumpLineNumbers: "all", // all, mediaQuery, comments
+        relativeUrls: false, // 是否调整相对路径
+        // postProcessor 替代 less.modifyVars
+        // postProcessor: function(css) {
+        //     var cdnUrl = 'http://wscdn.huanleguang.com/trade/';
+        //     var devCdnUrl = '';
+
+        //     var rreEscape = /[-\/\\^$*+?.()|[\]{}]/g;
+        //     var rcdnUrl = new RegExp(cdnUrl.replace(rreEscape, '\\$&'), 'ig');
+
+        //     css = css.replace(rcdnUrl, devCdnUrl);
+        //     return css;
+        // }
+    };
+</script>
+<script src="./js/vendor/less/dist/less.js"></script>
+<script src="./js/vendor/requirejs/require.js"></script>
+<script>
+
+var __qiezi = {
+    url: './js/',
+    paths: (function(){
+        var libUrl = './';
+        return {
+            "v1.0":             "v1.0",
+            "text":             libUrl + "vendor/requirejs-text/text",
+            "jquery":           libUrl + "vendor/jquery/dist/jquery.min",
+            "bootstrap":        libUrl + "vendor/bootstrap/dist/bootstrap.min",
+            "lodash":           libUrl + "vendor/lodash/lodash.min",
+            "moment":           libUrl + "vendor/moment/min/moment.min",
+            "postal":           libUrl + "vendor/postal.js/lib/postal.min",
+            "angular":          libUrl + "vendor/angular/angular.min",
+            "angular-route":    libUrl + "vendor/angular-route/angular-route.min",
+            "angular-resource": libUrl + "vendor/angular-resource/angular-resource.min",
+            "angular-messages": libUrl + "vendor/angular-messages/angular-messages.min"
+        };
+    })()
+};
+
+require.config({
+    baseUrl: __qiezi.url,
+    paths:   __qiezi.paths,
+    shim: {
+        'angular': {
+            exports: 'angular',
+            deps:    ['jquery']
+        },
+        'angular-route':    ['angular'],
+        'angular-resource': ['angular'],
+        'angular-messages': ['angular']
+    },
+    urlArgs: false
+});
+
+</script>
+</head>
+<body>
+
+<div class="header">
+    <a href="#!/home/index/">首页</a>
+    <a href="#!/home/about/">关于</a>
+</div>
+
+<!--start: ng-view-->
+<div id="container" ng-view></div>
+<!--end: ng-view-->
+
+<!--start: include angular view-->
+<!-- dialog 在这里include可以避免切换路由重新加载渲染 -->
+<!-- <div ng-include="PATH.view + 'order/memo-edit.html'"></div> -->
+<!--end: include angular view-->
+
+<script>
+    require(["jquery", "./app"], function($, app){
+        $(function(){
+            app.init();
+        });
+    });
+</script>
+
+</body>
+</html>
